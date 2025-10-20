@@ -121,6 +121,21 @@ const formatAiMarkdown = (markdown) => {
   return html.join('');
 };
 
+// Detecta se a análise da IA está disponível ou se retornou erro/indisponível
+const isIaAvailable = (texto) => {
+  if (!texto) return false;
+  const t = String(texto).trim().toLowerCase();
+  if (!t) return false;
+  // Sinais comuns de erro/indisponibilidade (cota 429, chave ausente, etc.)
+  const markers = [
+    '❌', 'erro', 'error', '429', 'quota',
+    'na análise com gemini', 'na analise com gemini',
+    'não foi configurada', 'nao foi configurada',
+    'ia não configurada', 'ia nao configurada'
+  ];
+  return !markers.some((m) => t.includes(m));
+};
+
 // O componente principal de resultados, agora corrigido
 function AnalysisResult({ resultado }) {
   // Segurança: fornecer defaults caso 'resultado' seja null/undefined
@@ -143,6 +158,7 @@ function AnalysisResult({ resultado }) {
   }, [analiseIA]);
 
   const cacheHit = Boolean(resultado && resultado.cacheHit);
+  const iaDisponivel = isIaAvailable(analiseIA);
 
   return (
     <div className="results-container">
@@ -277,21 +293,37 @@ function AnalysisResult({ resultado }) {
       </div>
 
       {/* Seção da Análise da Inteligência Artificial */}
-      <div className="ai-analysis">
-        <div className="section-header">
-          <span className="section-icon" aria-hidden="true">🤖</span>
-          <div className="section-titles">
-            <h3>Análise da IA (Gemini)</h3>
-            <p>Resumo estratégico elaborado automaticamente</p>
+      {iaDisponivel ? (
+        <div className="ai-analysis">
+          <div className="section-header">
+            <span className="section-icon" aria-hidden="true">🤖</span>
+            <div className="section-titles">
+              <h3>Análise da IA (Gemini)</h3>
+              <p>Resumo estratégico elaborado automaticamente</p>
+            </div>
+          </div>
+          <div className="ai-box">
+            <article
+              className="ai-text"
+              dangerouslySetInnerHTML={{ __html: formattedAiHtml }}
+            />
           </div>
         </div>
-        <div className="ai-box">
-          <article
-            className="ai-text"
-            dangerouslySetInnerHTML={{ __html: formattedAiHtml }}
-          />
+      ) : (
+        <div
+          className="ai-unavailable"
+          style={{
+            background: '#fffbe6',
+            border: '1px solid #ffe58f',
+            color: '#ad8b00',
+            padding: '12px 16px',
+            borderRadius: 8,
+            margin: '16px 0'
+          }}
+        >
+          🤖 A análise por IA está indisponível no momento (cota/erro). Exibindo apenas a análise baseada em regras.
         </div>
-      </div>
+      )}
 
       {/* Seção dos Pontos de Atenção Detalhados */}
       <div className="attention-points">
