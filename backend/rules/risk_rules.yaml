@@ -1,0 +1,24 @@
+rules:
+  - name: "Cláusula de Vigência na Venda (Risco de Despejo)"
+    type: "regex_match"
+    pattern: "não incide na presente locação \\\"cláusula de vigência\\\""
+    risk_score: 50
+    rationale: "Risco CRÍTICO de despejo forçado em 45 dias se o imóvel for vendido, sem direito a indenização, conforme a Cláusula Vigésima Primeira."
+
+  - name: "Benfeitorias sem Indenização"
+    type: "regex_match"
+    pattern: "obras ou benfeitorias.*?ficarão automaticamente a este incorporada, sem.*?retenção ou indenização"
+    risk_score: 40
+    rationale: "Risco CRÍTICO de perda de todo o investimento em melhorias, mesmo as autorizadas, sem direito a reembolso, conforme a Cláusula Décima Primeira."
+
+  - name: "Cálculo Ilegal de Multa por Rescisão"
+    type: "regex_match"
+    pattern: "multa no valor correspondente a.*?multiplicado pelo número de meses.*?faltantes"
+    risk_score: 30
+    rationale: "Risco ALTO. O cálculo da multa sobre o total restante do contrato, presente na Cláusula Segunda, é considerado abusivo e ilegal pela jurisprudência."
+
+  - name: "Visitação Abusiva pelo Locador"
+    type: "regex_match"
+    pattern: "permitir a vistoria pelo LOCADOR ou por seu mandatário, mediante combinação prévia"
+    risk_score: 15
+    rationale: "Risco MÉDIO. A redação 'combinação prévia' na Cláusula Décima Sétima é vaga e pode permitir visitas abusivas. O ideal é especificar um aviso prévio por escrito com antecedência mínima (ex: 48 horas)."

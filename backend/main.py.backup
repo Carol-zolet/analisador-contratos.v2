@@ -1,0 +1,119 @@
+# backend/main.py
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import tempfile
+import os
+import sys
+from pathlib import Path
+
+# Ajusta o path para encontrar os módulos
+current_dir = Path(__file__).parent
+parent_dir = current_dir.parent
+sys.path.extend([str(current_dir), str(parent_dir)])
+
+# Importa a sua lógica de negócio que já existe!
+# (Assumindo que os ficheiros estão na estrutura de pastas que definimos)
+try:
+    from core.extractor import extrair_texto_local, extrair_clausulas_chave
+    from core.ai_analyzer import analisar_contrato_com_ia, configurar_api_gemini
+    from database.database import engine, SessionLocal
+    from database import models
+except ImportError as e:
+    # Se der erro de importação, para a aplicação e avisa o utilizador
+    raise ImportError(f"Erro de importação: {e}. Verifique se a sua estrutura de pastas está correta (ex: backend/extractor.py).")
+
+# Cria as tabelas do banco de dados se não existirem
+models.Base.metadata.create_all(bind=engine)
+
+# Função para salvar análises no banco de dados
+def salvar_analise(nome_arquivo, score, resumo, analise_ia):
+    """Salva o resultado da análise no banco de dados"""
+    db = SessionLocal()
+    try:
+        nova_analise = models.Analise(
+            nome_arquivo=nome_arquivo,
+            score=score,
+            resumo=resumo,
+            analise_ia=analise_ia
+        )
+        db.add(nova_analise)
+        db.commit()
+        db.refresh(nova_analise)
+        return nova_analise
+    finally:
+        db.close()
+
+app = FastAPI(title="Analisador de Contratos API")
+
+# Configuração do CORS para permitir que o frontend (React) se comunique com o backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Permite pedidos da sua aplicação React
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Função auxiliar para não repetir código
+async def extrair_texto_de_upload(file: UploadFile):
+    caminho_temporario = None
+    try:
+        # Usa um ficheiro temporário para guardar o conteúdo do upload
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+            conteudo = await file.read()
+            tmp.write(conteudo)
+            caminho_temporario = tmp.name
+        
+        # Chama a sua função de extração de texto
+        texto, erro = extrair_texto_local(caminho_temporario)
+        return texto, erro
+    finally:
+        # Garante que o ficheiro temporário é sempre apagado
+        if caminho_temporario and os.path.exists(caminho_temporario):
+            os.unlink(caminho_temporario)
+
+
+@app.post("/analisar/", tags=["Análise"])
+async def analisar_arquivo_endpoint(file: UploadFile = File(...)):
+    """
+    Recebe um arquivo PDF, executa a análise completa e retorna o resultado.
+    """
+    texto_extraido, erro_extracao = await extrair_texto_de_upload(file)
+    if erro_extracao:
+        raise HTTPException(status_code=400, detail=erro_extracao)
+    if texto_extraido is None:
+        raise HTTPException(status_code=400, detail="Não foi possível extrair texto do documento")
+
+    try:
+        # 1. Executa a análise baseada em regras
+        analise_regras = extrair_clausulas_chave(texto_extraido)
+        
+        # 2. Executa a análise com IA
+        analise_ia_texto = "API de IA não configurada."
+        if configurar_api_gemini():
+            analise_ia_texto = analisar_contrato_com_ia(texto_extraido)
+        
+        # 3. Salva a análise no banco de dados
+        salvar_analise(
+            nome_arquivo=file.filename,
+            score=analise_regras["resumo_riscos"]["score_risco"],
+            resumo=analise_regras,
+            analise_ia=analise_ia_texto
+        )
+
+        # 4. Retorna o resultado combinado para o frontend
+        return {
+            "nome_arquivo": file.filename,
+            "analise_regras": analise_regras,
+            "analise_ia": analise_ia_texto
+        }
+
+    except Exception as e:
+        # Em caso de erro durante a análise, retorna uma mensagem clara
+        raise HTTPException(status_code=500, detail=f"Ocorreu um erro inesperado na análise: {str(e)}")
+
+
+@app.get("/", tags=["Root"])
+def root():
+    """Endpoint inicial para verificar se a API está online."""
+    return {"message": "API do Analisador de Contratos 26fit no ar!"}

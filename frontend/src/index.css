@@ -1,0 +1,321 @@
+/* frontend/src/index.css (Tema 26fit) */
+
+/* 1. Importação da Fonte e Variáveis de Cor */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Paleta de Cores 26fit */
+  --primary-color: #ffd200;  /* Amarelo 26fit */
+  --primary-hover: #ffc900;  /* Amarelo um pouco mais escuro */
+  --text-on-primary: #1a1a1a; /* Texto preto/escuro para botões */
+  
+  --brand-dark: #1a1a1a;     /* Preto/Grafite da marca */
+  --bg-color: #f8f9fa;      /* Fundo da página (cinza bem claro) */
+  --card-bg: #ffffff;       /* Fundo dos cards (branco) */
+  --text-color: #1a202c;    /* Cor do texto principal (quase preto) */
+  --text-light: #555;       /* Cor do texto secundário (cinza) */
+  --border-color: #e2e8f0;   /* Cor das bordas */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  /* Cores de Risco (Universais) */
+  --risk-critical: #ff4d4f;
+  --risk-high: #faad14;
+  --risk-medium: #1890ff;
+  --risk-low: #52c41a;
+}
+
+/* 2. Reset Global e Estilos do Body */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* 3. Layout Principal (Sidebar + Conteúdo) */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--brand-dark); /* Sidebar com o preto da marca */
+  color: #a9b3c1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header h2 {
+  color: var(--primary-color); /* Título da Sidebar em amarelo */
+  margin-bottom: 2rem;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav li a {
+  color: #a9b3c1;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.sidebar nav li a:hover {
+  background: #333;
+  color: white;
+}
+
+.sidebar nav li a.active {
+  background: var(--primary-color); /* Link ativo em amarelo */
+  color: var(--text-on-primary);  /* Texto do link ativo em preto */
+  font-weight: 600;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 3rem 4rem;
+  overflow-y: auto;
+}
+
+/* 4. Estilos da Página Inicial (Upload) */
+.content h1 {
+  color: var(--text-color); /* Título principal em preto */
+  margin-bottom: 0.5rem;
+  font-size: 2.25rem;
+}
+
+.content .subtitle {
+  color: var(--text-light);
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.upload-box {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-box:hover,
+.upload-box.dragging {
+  border-color: var(--primary-color); /* Borda amarela no hover */
+  background: #fffbeb; /* Fundo amarelo bem claro */
+}
+
+.upload-box-icon {
+  font-size: 3rem;
+  color: var(--primary-color); /* Ícone amarelo */
+  line-height: 1;
+}
+
+.upload-box-text {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.upload-box-text span {
+  color: var(--primary-color); /* "clique para selecionar" em amarelo */
+  font-weight: 600;
+}
+
+.upload-box-hint {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+}
+
+.file-info {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+/* 5. Estilo do Botão Principal (Estilo 26fit) */
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-on-primary); /* Texto preto */
+  background-color: var(--primary-color); /* Fundo amarelo */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.cta-button:hover {
+  background-color: var(--primary-hover); /* Amarelo mais escuro */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cta-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 6. Estilos da Página de Análise (Resultados) */
+.results-container h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.results-container {
+  margin-top: 2rem;
+  /* Animação de fade-in */
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo de Card Padrão */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px; /* Borda mais arredondada */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Sombra do usuário */
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.score-summary {
+  text-align: center;
+}
+
+#gauge-chart {
+  width: 60%;
+  margin: 1rem auto 0;
+  max-width: 350px;
+}
+
+.score-summary p {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.score-summary p strong {
+  font-size: 1.5rem;
+  display: block;
+}
+
+/* Níveis de Risco com Cor */
+.risk-CRÍTICO { color: var(--risk-critical); }
+.risk-ALTO { color: var(--risk-high); }
+.risk-MÉDIO { color: var(--risk-medium); }
+.risk-BAIXO { color: var(--risk-low); }
+
+/* Card da Análise da IA */
+.ai-analysis h3,
+.attention-points h3 {
+  color: var(--text-color); /* Título preto */
+  border-bottom: 3px solid var(--primary-color); /* Borda de baixo AMARELA */
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.ai-analysis-content {
+  white-space: pre-wrap; /* Mantém a formatação da IA */
+  line-height: 1.7;
+  color: var(--text-color);
+}
+
+/* Estilos para o Markdown da IA */
+.ai-analysis-content h2 { /* ## */
+  font-size: 1.5rem;
+  color: #000;
+  margin-top: 1.5rem;
+}
+.ai-analysis-content h3 { /* ### */
+  font-size: 1.3rem;
+  color: var(--text-color);
+  margin-top: 1rem;
+}
+.ai-analysis-content strong {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Cards de Pontos de Atenção */
+.ponto-atencao {
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.ponto-atencao:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ponto-atencao h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.ponto-atencao p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--text-light);
+}
+.ponto-atencao p strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.ponto-atencao small {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+/* 7. Estilo da Mensagem de Erro */
+.error-message {
+  background: #fff0f0;
+  border: 1px solid var(--risk-critical);
+  border-left: 5px solid var(--risk-critical);
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: #d90000;
+}
+.error-message h2 {
+  margin-top: 0;
+  color: #d90000;
+}

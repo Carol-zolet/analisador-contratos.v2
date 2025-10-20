@@ -1,0 +1,75 @@
+/* frontend/src/components/FileUpload.css */
+.file-upload-container {
+  width: 100%;
+  max-width: 700px; /* Largura máxima do componente */
+  margin: 2rem auto; /* Centraliza o componente */
+}
+
+.file-upload-area {
+  border: 3px dashed #e0e0e0;
+  border-radius: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fcfcfc;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Estilo ao passar o rato por cima */
+.file-upload-area:hover {
+  border-color: #ffd200; /* Cor da 26fit */
+  background-color: #fffefb;
+}
+
+/* Estilo ao arrastar um ficheiro por cima */
+.file-upload-area.dragging {
+  border-color: #ffd200;
+  background-color: #fff9e6;
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.file-upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre os elementos */
+}
+
+.file-upload-icon {
+  font-size: 3rem;
+  color: #666;
+}
+
+.file-upload-text {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+}
+
+.file-upload-text strong {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.file-upload-hint {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0;
+}
+
+/* Esconde o input de ficheiro original */
+.file-input {
+  display: none;
+}
+
+.file-name-display {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #e8f5e9;
+  border-left: 5px solid #4caf50;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+}

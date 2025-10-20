@@ -1,0 +1,581 @@
+/* src/components/AnalisadorAdendo.css */
+
+.analisador-adendo-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-adendo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header-adendo h1 {
+  font-size: 42px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  color: #7f8c8d;
+  font-size: 18px;
+}
+
+/* Upload Sections */
+.upload-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.upload-section h3 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.upload-section.opcional {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px dashed #ced4da;
+}
+
+.hint {
+  color: #6c757d;
+  font-size: 14px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+}
+
+.upload-area {
+  border: 3px dashed #3498db;
+  border-radius: 12px;
+  padding: 50px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #f8f9fa;
+}
+
+.upload-area:hover {
+  border-color: #2980b9;
+  background: #e9ecef;
+  transform: scale(1.01);
+}
+
+.upload-area.secundario {
+  border-color: #95a5a6;
+  background: white;
+}
+
+.upload-area.secundario:hover {
+  border-color: #7f8c8d;
+}
+
+.upload-icon {
+  font-size: 64px;
+  margin-bottom: 15px;
+}
+
+.upload-label {
+  cursor: pointer;
+}
+
+.upload-label p {
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 10px 0;
+}
+
+.upload-label small {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* Arquivo Selecionado */
+.arquivo-selecionado {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.arquivo-selecionado.contrato {
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  border-color: #17a2b8;
+}
+
+.arquivo-icon {
+  font-size: 24px;
+}
+
+.arquivo-nome {
+  flex: 1;
+  font-weight: 600;
+  color: #155724;
+}
+
+.arquivo-selecionado.contrato .arquivo-nome {
+  color: #0c5460;
+}
+
+.remover-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.remover-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Botão de Análise */
+.acao-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.btn-analisar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.btn-analisar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-analisar:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Resultados */
+.resultados-adendo {
+  margin-top: 50px;
+}
+
+.resultados-adendo > h2 {
+  font-size: 36px;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Score Card */
+.score-card {
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border-left: 6px solid;
+}
+
+.score-card.favoravel {
+  border-left-color: #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+}
+
+.score-card.baixo {
+  border-left-color: #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #f0f8f0 100%);
+}
+
+.score-card.medio {
+  border-left-color: #ffc107;
+  background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
+}
+
+.score-card.alto {
+  border-left-color: #fd7e14;
+  background: linear-gradient(135deg, #ffe5d0 0%, #ffeaa7 100%);
+}
+
+.score-card.critico {
+  border-left-color: #dc3545;
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.score-header h3 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.badge-comparativo {
+  background: #17a2b8;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.score-corpo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.score-numero {
+  font-size: 72px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.score-numero .total {
+  font-size: 36px;
+  color: #7f8c8d;
+}
+
+.nivel-badge {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.7);
+}
+
+.recomendacao-geral {
+  padding: 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Estatísticas Grid */
+.estatisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-top: 4px solid;
+}
+
+.stat-card.negativo {
+  border-top-color: #dc3545;
+}
+
+.stat-card.positivo {
+  border-top-color: #28a745;
+}
+
+.stat-card.neutro {
+  border-top-color: #6c757d;
+}
+
+.stat-numero {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+/* Pontos de Atenção */
+.pontos-atencao-adendo {
+  background: white;
+  border-radius: 12px;
+  padding: 35px;
+  margin-bottom: 35px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.pontos-atencao-adendo h3 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.sem-problemas {
+  text-align: center;
+  padding: 40px;
+  background: #d4edda;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #155724;
+}
+
+.lista-pontos-adendo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ponto-card-adendo {
+  background: white;
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 25px;
+  transition: all 0.3s;
+}
+
+.ponto-card-adendo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.ponto-card-adendo.crítico {
+  border-color: #dc3545;
+  background: linear-gradient(135deg, #fff5f5 0%, white 100%);
+}
+
+.ponto-card-adendo.alto {
+  border-color: #fd7e14;
+  background: linear-gradient(135deg, #fff8f0 0%, white 100%);
+}
+
+.ponto-card-adendo.médio {
+  border-color: #ffc107;
+  background: linear-gradient(135deg, #fffbf0 0%, white 100%);
+}
+
+.ponto-card-adendo.positivo {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #f0fff4 0%, white 100%);
+}
+
+.ponto-header-adendo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.ponto-tipo-badge {
+  background: #dc3545;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.ponto-card-adendo.alto .ponto-tipo-badge {
+  background: #fd7e14;
+}
+
+.ponto-card-adendo.médio .ponto-tipo-badge {
+  background: #ffc107;
+}
+
+.ponto-card-adendo.positivo .ponto-tipo-badge {
+  background: #28a745;
+}
+
+.ponto-categoria-adendo {
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.ponto-descricao-adendo {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: #2c3e50;
+}
+
+.ponto-impacto-adendo,
+.ponto-legal-adendo,
+.ponto-recomendacao-adendo {
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 10px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.ponto-impacto-adendo {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+}
+
+.ponto-legal-adendo {
+  background: #d1ecf1;
+  border-left: 4px solid #17a2b8;
+}
+
+.ponto-recomendacao-adendo {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+/* Categorias Afetadas */
+.categorias-afetadas {
+  background: white;
+  border-radius: 12px;
+  padding: 35px;
+  margin-bottom: 35px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.categorias-afetadas h3 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.categorias-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.categoria-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Análise IA */
+.analise-ia-adendo {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.analise-ia-adendo h3 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.ia-conteudo-adendo {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.markdown-content {
+  line-height: 1.8;
+  color: #2c3e50;
+}
+
+.markdown-content h2 {
+  font-size: 24px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.markdown-content h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  color: #495057;
+}
+
+.markdown-content strong {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .analisador-adendo-container {
+    padding: 20px 15px;
+  }
+
+  .header-adendo h1 {
+    font-size: 32px;
+  }
+
+  .upload-area {
+    padding: 30px 15px;
+  }
+
+  .score-numero {
+    font-size: 48px;
+  }
+
+  .nivel-badge {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+
+  .estatisticas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .score-corpo {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
