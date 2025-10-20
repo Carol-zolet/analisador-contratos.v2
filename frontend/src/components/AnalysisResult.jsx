@@ -189,6 +189,91 @@ function AnalysisResult({ resultado }) {
         </div>
       </div>
 
+      {/* NOVA SEÇÃO: Análise Baseada em Regras */}
+      <div className="rules-analysis" style={{ 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '24px',
+        borderRadius: '12px',
+        color: '#fff',
+        marginBottom: '24px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+      }}>
+        <div className="section-header" style={{ marginBottom: '20px' }}>
+          <span className="section-icon" aria-hidden="true" style={{ fontSize: '32px' }}>📋</span>
+          <div className="section-titles">
+            <h3 style={{ color: '#fff', margin: 0 }}>Análise Baseada em Regras</h3>
+            <p style={{ color: 'rgba(255,255,255,0.9)', margin: '4px 0 0 0' }}>
+              Avaliação automática segundo critérios jurídicos e boas práticas
+            </p>
+          </div>
+        </div>
+
+        <div style={{ 
+          background: 'rgba(255,255,255,0.95)', 
+          padding: '20px', 
+          borderRadius: '8px',
+          color: '#333'
+        }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '16px',
+            marginBottom: '20px'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>Score de Risco</div>
+              <div style={{ fontSize: '32px', fontWeight: 'bold', color: getScoreColor(scorePercent).includes('52c41a') ? '#52c41a' : getScoreColor(scorePercent).includes('ffc107') ? '#ffc107' : '#ff4d4f' }}>
+                {scorePercent}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>Nível de Risco</div>
+              <div style={{ 
+                fontSize: '20px', 
+                fontWeight: 'bold', 
+                color: '#fff',
+                background: riskBadgeColor,
+                padding: '8px 16px',
+                borderRadius: '6px',
+                display: 'inline-block'
+              }}>
+                {nivelRisco}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>Cláusulas Problemáticas</div>
+              <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#ff4d4f' }}>
+                {totalClausulasProblem}
+              </div>
+            </div>
+          </div>
+
+          {pontosAtencao && pontosAtencao.length > 0 && (
+            <div>
+              <h4 style={{ color: '#333', marginTop: '20px', marginBottom: '12px', fontSize: '18px' }}>
+                ⚠️ Pontos de Atenção Identificados ({pontosAtencao.length})
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {pontosAtencao.map((ponto, index) => (
+                  <div 
+                    key={index} 
+                    style={{ 
+                      padding: '12px 16px',
+                      background: '#f8f9fa',
+                      borderRadius: '6px',
+                      borderLeft: `4px solid ${getRiskColor(ponto.tipo)}`,
+                      fontSize: '14px'
+                    }}
+                  >
+                    <strong style={{ color: getRiskColor(ponto.tipo) }}>{ponto.tipo}:</strong> {ponto.categoria}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Seção da Análise da Inteligência Artificial */}
       <div className="ai-analysis">
         <div className="section-header">
@@ -208,7 +293,7 @@ function AnalysisResult({ resultado }) {
 
       {/* Seção dos Pontos de Atenção Detalhados */}
       <div className="attention-points">
-        <h3>Pontos de Atenção Detalhados</h3>
+        <h3>Detalhamento dos Pontos de Atenção</h3>
         {pontosAtencao && pontosAtencao.length > 0 ? (
           pontosAtencao.map((ponto, index) => (
             <PontoAtencao key={index} ponto={ponto} />
