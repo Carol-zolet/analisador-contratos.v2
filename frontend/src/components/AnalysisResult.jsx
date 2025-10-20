@@ -2,16 +2,18 @@ import React from 'react';
 import DOMPurify from 'dompurify';
 import './AnalysisResult.css';
 
+// Função helper para cores de risco (usada em múltiplos componentes)
+const getRiskColor = (tipo) => {
+  switch (tipo) {
+    case 'CRÍTICO': return '#ff4d4f'; // Vermelho
+    case 'ALTO': return '#faad14';    // Laranja
+    case 'MÉDIO': return '#1890ff';   // Azul
+    default: return '#52c41a';       // Verde
+  }
+};
+
 // Um componente para exibir cada "ponto de atenção" de forma organizada
 function PontoAtencao({ ponto }) {
-  const getRiskColor = (tipo) => {
-    switch (tipo) {
-      case 'CRÍTICO': return '#ff4d4f'; // Vermelho
-      case 'ALTO': return '#faad14';    // Laranja
-      case 'MÉDIO': return '#1890ff';   // Azul
-      default: return '#52c41a';       // Verde
-    }
-  };
 
   return (
     <div className="ponto-atencao" style={{ borderLeft: `5px solid ${getRiskColor(ponto.tipo)}` }}>
