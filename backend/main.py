@@ -1,6 +1,6 @@
 ﻿# backend/main.py
 
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import tempfile
 import os
@@ -53,7 +53,10 @@ app.add_middleware(
 # =======================================================
 
 @app.post("/analisar/", tags=["Análise de Contratos"])
-async def analisar_arquivo_endpoint(file: UploadFile = File(...)):
+async def analisar_arquivo_endpoint(
+    file: UploadFile = File(...),
+    force_ai: bool = Query(False, description="Força reprocessamento da IA mesmo quando houver cache."),
+):
     """Recebe um arquivo (PDF ou DOCX) e executa a análise completa."""
     if not file.filename:
         raise HTTPException(status_code=400, detail="Arquivo enviado sem nome.")
@@ -83,7 +86,7 @@ async def analisar_arquivo_endpoint(file: UploadFile = File(...)):
             hash_arquivo = hashlib.sha256(conteudo).hexdigest()
 
             cache_salvo = buscar_analise_por_hash(hash_arquivo)
-            if cache_salvo:
+            if cache_salvo and not force_ai:
                 resultado_cache = cache_salvo.resultado_regras or {}
                 score_cache = resultado_cache.get("score", 0)
                 total_clausulas = resultado_cache.get(
@@ -116,7 +119,12 @@ async def analisar_arquivo_endpoint(file: UploadFile = File(...)):
             raise HTTPException(status_code=400, detail="Texto extraído insuficiente. Verifique se o arquivo não é uma imagem escaneada.")
         
         # O resto da lógica de análise
-        analise_regras = extrair_clausulas_chave(texto_extraido)
+        analise_regras = None
+        if cache_salvo and force_ai and (cache_salvo.resultado_regras):
+            # Reutiliza as regras do cache para evitar recomputo desnecessário
+            analise_regras = cache_salvo.resultado_regras
+        else:
+            analise_regras = extrair_clausulas_chave(texto_extraido)
         
         analise_ia_texto = "API de IA não configurada."
         if configurar_api_gemini():

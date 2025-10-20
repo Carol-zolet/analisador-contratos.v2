@@ -14,6 +14,7 @@ function Analisador() {
   const [arquivo, setArquivo] = useState(null);
   const [resultadoAnalise, setResultadoAnalise] = useState(null);
   const [estaCarregando, setEstaCarregando] = useState(false);
+  const [ultimoResultadoSemIA, setUltimoResultadoSemIA] = useState(null);
 
   const handleFileSelect = (file) => {
     setArquivo(file);
@@ -22,7 +23,7 @@ function Analisador() {
 
   const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-  const handleAnalisarClick = async () => {
+  const handleAnalisarClick = async (opts = { forceAi: false }) => {
     if (!arquivo) {
       alert("Por favor, selecione um arquivo primeiro.");
       return;
@@ -34,7 +35,8 @@ function Analisador() {
 
     try {
       // Chama o endpoint único /analisar/
-      const response = await fetch(`${apiBaseUrl.replace(/\/$/, '')}/analisar/`, {
+      const url = `${apiBaseUrl.replace(/\/$/, '')}/analisar/${opts.forceAi ? '?force_ai=true' : ''}`;
+      const response = await fetch(url, {
         method: 'POST',
         body: formData,
       });
@@ -46,7 +48,11 @@ function Analisador() {
       }
 
       const data = await response.json();
-  setResultadoAnalise(data); 
+      setResultadoAnalise(data);
+      // Se IA indisponível, guardamos o resultado para retry
+      const iaText = (data && data.analiseIA) || '';
+      const hasIaError = typeof iaText === 'string' && /❌|erro|quota|429/i.test(iaText);
+      if (hasIaError) setUltimoResultadoSemIA(data);
 
     } catch (error) {
       setResultadoAnalise({ erro: `Erro na Análise: ${error.message}` });
@@ -80,7 +86,26 @@ function Analisador() {
               <p style={{color: 'red'}}>{resultadoAnalise.erro}</p>
           </div>
         ) : (
-          <AnalysisResult resultado={resultadoAnalise} />
+          <>
+            {/* Botão de tentar IA novamente quando houver erro de IA */}
+            {(() => {
+              const iaText = (resultadoAnalise && resultadoAnalise.analiseIA) || '';
+              const hasIaError = typeof iaText === 'string' && /❌|erro|quota|429/i.test(iaText);
+              if (!hasIaError) return null;
+              return (
+                <div style={{ margin: '12px 0' }}>
+                  <button
+                    onClick={() => handleAnalisarClick({ forceAi: true })}
+                    disabled={estaCarregando}
+                    title="Solicita apenas a análise da IA reaproveitando o texto e regras do cache"
+                  >
+                    {estaCarregando ? 'Requisitando IA...' : 'Tentar IA novamente'}
+                  </button>
+                </div>
+              );
+            })()}
+            <AnalysisResult resultado={resultadoAnalise} />
+          </>
         )
       )}
     </div>
