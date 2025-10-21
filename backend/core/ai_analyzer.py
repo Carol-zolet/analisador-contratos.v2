@@ -53,22 +53,34 @@ Se possível, cite os principais artigos da Lei do Inquilinato (Lei 8.245/91) ou
 def configurar_api_gemini():
     # Tenta ler da variável de ambiente primeiro
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    print(f"DEBUG: GEMINI_API_KEY={os.getenv('GEMINI_API_KEY')[:10] if os.getenv('GEMINI_API_KEY') else 'None'}...")
+    print(f"DEBUG: GOOGLE_API_KEY={os.getenv('GOOGLE_API_KEY')[:10] if os.getenv('GOOGLE_API_KEY') else 'None'}...")
     
     # Se não encontrar, tenta ler do arquivo secreto do Render
     if not api_key:
         try:
             secret_path = "/etc/secrets/GEMINI_API_KEY"
+            print(f"DEBUG: Tentando ler de {secret_path}")
             if os.path.exists(secret_path):
                 with open(secret_path, 'r') as f:
                     api_key = f.read().strip()
-        except Exception:
-            pass
+                print(f"DEBUG: Arquivo secreto lido, key={api_key[:10] if api_key else 'vazio'}...")
+            else:
+                print("DEBUG: Arquivo secreto não existe")
+        except Exception as e:
+            print(f"DEBUG: Erro ao ler arquivo secreto: {e}")
     
-    if not api_key: return False
+    if not api_key:
+        print("DEBUG: Nenhuma API key encontrada!")
+        return False
+    
     try:
         genai.configure(api_key=api_key)
+        print("DEBUG: API configurada com sucesso!")
         return True
-    except Exception: return False
+    except Exception as e:
+        print(f"DEBUG: Erro ao configurar API: {e}")
+        return False
 
 def analisar_contrato_com_ia(texto: str) -> str:
     if not configurar_api_gemini():
@@ -78,4 +90,8 @@ def analisar_contrato_com_ia(texto: str) -> str:
         resposta = model.generate_content(PROMPT_IA.format(texto=texto))
         return resposta.text
     except Exception as e:
-        return f"❌ **Erro na análise com Gemini:** {e}"
+        # Log detalhado do erro para debugging
+        import traceback
+        erro_detalhado = traceback.format_exc()
+        print(f"ERRO GEMINI: {erro_detalhado}")
+        return f"❌ **Erro na análise com Gemini:** {str(e)}"
