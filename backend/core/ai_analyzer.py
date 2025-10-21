@@ -51,7 +51,19 @@ Se possível, cite os principais artigos da Lei do Inquilinato (Lei 8.245/91) ou
 """
 
 def configurar_api_gemini():
+    # Tenta ler da variável de ambiente primeiro
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    
+    # Se não encontrar, tenta ler do arquivo secreto do Render
+    if not api_key:
+        try:
+            secret_path = "/etc/secrets/GEMINI_API_KEY"
+            if os.path.exists(secret_path):
+                with open(secret_path, 'r') as f:
+                    api_key = f.read().strip()
+        except Exception:
+            pass
+    
     if not api_key: return False
     try:
         genai.configure(api_key=api_key)
