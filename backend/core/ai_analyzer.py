@@ -51,7 +51,7 @@ Se possível, cite os principais artigos da Lei do Inquilinato (Lei 8.245/91) ou
 """
 
 def configurar_api_gemini():
-    api_key = os.getenv("GEMINI_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if not api_key: return False
     try:
         genai.configure(api_key=api_key)
