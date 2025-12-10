@@ -6,7 +6,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h2>Analisador 26fit</h2>
+        <h2>Analisador de Documentos</h2>
       </div>
       <nav className="sidebar-nav">
         <Link to="/">📄 Analisador</Link>

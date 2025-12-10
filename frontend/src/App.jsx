@@ -105,7 +105,7 @@ function Analisador() {
 
   return (
     <div>
-      <h1>Análise de Contrato | 26fit</h1>
+      <h1>Análise de Contrato</h1>
   <p>Envie seu contrato (PDF ou DOCX) para análise de risco.</p>
       
       {/* Apenas um componente de upload */}
