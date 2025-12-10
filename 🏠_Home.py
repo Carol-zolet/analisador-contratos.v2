@@ -6,8 +6,8 @@ criar_tabelas()
 
 st.set_page_config(
     layout="wide",
-    page_title="Analisador 26fit",
-    page_icon="https://www.26fit.com.br/imagens/logo.png"
+    page_title="Analisador de Contratos",
+    page_icon=""
 )
 
 # --- CSS PERSONALIZADO (TEMA 26 FIT - VERSÃO PREMIUM) ---

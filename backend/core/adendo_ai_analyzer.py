@@ -29,6 +29,7 @@ def configurar_api_gemini_adendo():
 
 
 def analisar_adendo_com_ia(texto_adendo: str, texto_contrato_original: str = None) -> str:
+    """
     Análise de adendo contratual usando IA (Google Gemini)
     Compara com contrato original se fornecido
     """

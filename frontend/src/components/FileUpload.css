@@ -17,7 +17,7 @@
 
 /* Estilo ao passar o rato por cima */
 .file-upload-area:hover {
-  border-color: #ffd200; /* Cor da 26fit */
+  border-color: #ffd200;
   background-color: #fffefb;
 }
 

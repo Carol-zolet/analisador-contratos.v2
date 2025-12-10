@@ -1,4 +1,4 @@
-# Analisador de Contratos 26fit
+# Analisador de Contratos
 
 Aplicação Full-Stack (FastAPI + React/Vite) para análise de contratos (PDF/DOCX) com regras e IA (Gemini), incluindo cache por hash.
 
