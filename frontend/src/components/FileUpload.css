@@ -17,14 +17,14 @@
 
 /* Estilo ao passar o rato por cima */
 .file-upload-area:hover {
-  border-color: #ffd200; /* Cor da 26fit */
+  border-color: #3b82f6; /* Cor primária */
   background-color: #fffefb;
 }
 
 /* Estilo ao arrastar um ficheiro por cima */
 .file-upload-area.dragging {
-  border-color: #ffd200;
-  background-color: #fff9e6;
+  border-color: #3b82f6;
+  background-color: #eff6ff;
   transform: scale(1.02);
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }

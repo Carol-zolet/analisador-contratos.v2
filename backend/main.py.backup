@@ -116,4 +116,4 @@ async def analisar_arquivo_endpoint(file: UploadFile = File(...)):
 @app.get("/", tags=["Root"])
 def root():
     """Endpoint inicial para verificar se a API está online."""
-    return {"message": "API do Analisador de Contratos 26fit no ar!"}
+    return {"message": "API do Analisador de Documentos no ar!"}

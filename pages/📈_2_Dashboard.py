@@ -4,7 +4,7 @@ from database import buscar_todas_analises
 
 st.set_page_config(layout="wide", page_title="Dashboard de Análises")
 
-# --- CSS PERSONALIZADO (TEMA 26 FIT) ---
+# --- CSS PERSONALIZADO (TEMA NEUTRO) ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');

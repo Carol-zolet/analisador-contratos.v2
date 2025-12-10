@@ -7,12 +7,12 @@ from ai_analyzer import analisar_contrato_com_ia, AI_ENABLED
 from database import salvar_analise
 
 st.set_page_config(
-    page_title="Analisador de Contratos - 26fit", 
+    page_title="Analisador de Contratos", 
     page_icon="📄", 
     layout="wide"
 )
 
-# --- CSS PERSONALIZADO (TEMA 26 FIT) ---
+# --- CSS PERSONALIZADO (TEMA NEUTRO) ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');

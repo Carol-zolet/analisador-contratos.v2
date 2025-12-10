@@ -6,11 +6,11 @@ criar_tabelas()
 
 st.set_page_config(
     layout="wide",
-    page_title="Analisador 26fit",
-    page_icon="https://www.26fit.com.br/imagens/logo.png"
+    page_title="Analisador de Documentos",
+    page_icon="📄"
 )
 
-# --- CSS PERSONALIZADO (TEMA 26 FIT - VERSÃO PREMIUM) ---
+# --- CSS PERSONALIZADO (TEMA NEUTRO) ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
@@ -42,7 +42,7 @@ st.markdown("""
 # --- LAYOUT DA PÁGINA ---
 st.markdown("""
 <div class="hero-section">
-    <div class="subheader">Ferramenta Interna 26 FIT</div>
+    <div class="subheader">Ferramenta de Análise de Contratos</div>
     <h1>Analisador Jurídico de Contratos</h1>
     <p>
         O assistente de IA para acelerar a revisão de contratos de locação, 

@@ -170,7 +170,7 @@ async def analisar_arquivo_endpoint(
 @app.get("/", tags=["Root"])
 def root():
     return {
-        "message": "API do Analisador de Contratos 26fit no ar!",
+        "message": "API do Analisador de Documentos no ar!",
         "versao": "1.5 (Simplificada)",
         "endpoints": {
             "analise_contrato": "/analisar/",
