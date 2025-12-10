@@ -1,28 +1,28 @@
-/* frontend/src/index.css (Tema 26fit) */
+/* frontend/src/index.css (Tema Neutro) */
 
 /* 1. Importação da Fonte e Variáveis de Cor */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Paleta de Cores 26fit */
-  --primary-color: #ffd200;  /* Amarelo 26fit */
-  --primary-hover: #ffc900;  /* Amarelo um pouco mais escuro */
-  --text-on-primary: #1a1a1a; /* Texto preto/escuro para botões */
+  /* Paleta de Cores Neutra */
+  --primary-color: #3b82f6;      /* Azul moderno */
+  --primary-hover: #2563eb;      /* Azul mais escuro */
+  --text-on-primary: #ffffff;    /* Texto branco para botões */
   
-  --brand-dark: #1a1a1a;     /* Preto/Grafite da marca */
-  --bg-color: #f8f9fa;      /* Fundo da página (cinza bem claro) */
-  --card-bg: #ffffff;       /* Fundo dos cards (branco) */
-  --text-color: #1a202c;    /* Cor do texto principal (quase preto) */
-  --text-light: #555;       /* Cor do texto secundário (cinza) */
-  --border-color: #e2e8f0;   /* Cor das bordas */
+  --brand-dark: #1e293b;         /* Cinza escuro moderno */
+  --bg-color: #f8f9fa;          /* Fundo da página (cinza bem claro) */
+  --card-bg: #ffffff;           /* Fundo dos cards (branco) */
+  --text-color: #1a202c;        /* Cor do texto principal (quase preto) */
+  --text-light: #64748b;        /* Cor do texto secundário (cinza) */
+  --border-color: #e2e8f0;      /* Cor das bordas */
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
 
   /* Cores de Risco (Universais) */
-  --risk-critical: #ff4d4f;
-  --risk-high: #faad14;
-  --risk-medium: #1890ff;
-  --risk-low: #52c41a;
+  --risk-critical: #ef4444;
+  --risk-high: #f59e0b;
+  --risk-medium: #3b82f6;
+  --risk-low: #10b981;
 }
 
 /* 2. Reset Global e Estilos do Body */
@@ -47,15 +47,15 @@ body {
 
 .sidebar {
   width: 260px;
-  background: var(--brand-dark); /* Sidebar com o preto da marca */
-  color: #a9b3c1;
+  background: var(--brand-dark);
+  color: #94a3b8;
   padding: 2rem;
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header h2 {
-  color: var(--primary-color); /* Título da Sidebar em amarelo */
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 .sidebar nav li a {
-  color: #a9b3c1;
+  color: #94a3b8;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -76,13 +76,13 @@ body {
 }
 
 .sidebar nav li a:hover {
-  background: #333;
+  background: #334155;
   color: white;
 }
 
 .sidebar nav li a.active {
-  background: var(--primary-color); /* Link ativo em amarelo */
-  color: var(--text-on-primary);  /* Texto do link ativo em preto */
+  background: var(--primary-color);
+  color: var(--text-on-primary);
   font-weight: 600;
 }
 
@@ -94,7 +94,7 @@ body {
 
 /* 4. Estilos da Página Inicial (Upload) */
 .content h1 {
-  color: var(--text-color); /* Título principal em preto */
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   font-size: 2.25rem;
 }
@@ -118,13 +118,13 @@ body {
 
 .upload-box:hover,
 .upload-box.dragging {
-  border-color: var(--primary-color); /* Borda amarela no hover */
-  background: #fffbeb; /* Fundo amarelo bem claro */
+  border-color: var(--primary-color);
+  background: #eff6ff;
 }
 
 .upload-box-icon {
   font-size: 3rem;
-  color: var(--primary-color); /* Ícone amarelo */
+  color: var(--primary-color);
   line-height: 1;
 }
 
@@ -134,7 +134,7 @@ body {
 }
 
 .upload-box-text span {
-  color: var(--primary-color); /* "clique para selecionar" em amarelo */
+  color: var(--primary-color);
   font-weight: 600;
 }
 
@@ -156,13 +156,13 @@ body {
   font-weight: 500;
 }
 
-/* 5. Estilo do Botão Principal (Estilo 26fit) */
+/* 5. Estilo do Botão Principal */
 .cta-button {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-on-primary); /* Texto preto */
-  background-color: var(--primary-color); /* Fundo amarelo */
+  color: var(--text-on-primary);
+  background-color: var(--primary-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -171,14 +171,14 @@ body {
 }
 
 .cta-button:hover {
-  background-color: var(--primary-hover); /* Amarelo mais escuro */
+  background-color: var(--primary-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
 .cta-button:disabled {
-  background-color: #ccc;
-  color: #666;
+  background-color: #cbd5e1;
+  color: #94a3b8;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -192,7 +192,6 @@ body {
 
 .results-container {
   margin-top: 2rem;
-  /* Animação de fade-in */
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -204,8 +203,8 @@ body {
 /* Estilo de Card Padrão */
 .card {
   background: var(--card-bg);
-  border-radius: 16px; /* Borda mais arredondada */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Sombra do usuário */
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   padding: 2rem;
   margin-bottom: 1.5rem;
 }
@@ -240,26 +239,26 @@ body {
 /* Card da Análise da IA */
 .ai-analysis h3,
 .attention-points h3 {
-  color: var(--text-color); /* Título preto */
-  border-bottom: 3px solid var(--primary-color); /* Borda de baixo AMARELA */
+  color: var(--text-color);
+  border-bottom: 3px solid var(--primary-color);
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
 }
 
 .ai-analysis-content {
-  white-space: pre-wrap; /* Mantém a formatação da IA */
+  white-space: pre-wrap;
   line-height: 1.7;
   color: var(--text-color);
 }
 
 /* Estilos para o Markdown da IA */
-.ai-analysis-content h2 { /* ## */
+.ai-analysis-content h2 {
   font-size: 1.5rem;
   color: #000;
   margin-top: 1.5rem;
 }
-.ai-analysis-content h3 { /* ### */
+.ai-analysis-content h3 {
   font-size: 1.3rem;
   color: var(--text-color);
   margin-top: 1rem;
@@ -308,14 +307,14 @@ body {
 
 /* 7. Estilo da Mensagem de Erro */
 .error-message {
-  background: #fff0f0;
+  background: #fef2f2;
   border: 1px solid var(--risk-critical);
   border-left: 5px solid var(--risk-critical);
   padding: 1.5rem;
   border-radius: 8px;
-  color: #d90000;
+  color: #dc2626;
 }
 .error-message h2 {
   margin-top: 0;
-  color: #d90000;
+  color: #dc2626;
 }
